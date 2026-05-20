@@ -72,6 +72,7 @@ def pdfHandler(file):
         newWriter.insert_page(page)
         newWriter.write("tempOutput.pdf")
         subprocess.run(["kitten","icat","--scale-up","--fit","height","--background","white","tempOutput.pdf"])
+        subprocess.run(["rm","tempOutput.pdf"])
         return("USED ICAT")
     elif text:
         return text
