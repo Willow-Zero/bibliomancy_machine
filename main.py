@@ -10,18 +10,19 @@ def txtHandler(file):
     splitter = "\n"
     gutFlag = False
     with open(file) as f:
-        if "PROJECT GUTENBERG EBOOK" in f.read():
+        fulltext = f.read()
+        if "PROJECT GUTENBERG EBOOK" in fulltext:
             splitter = "\n\n"
             gutFlag = True
-        splitup = (f.read().split(splitter)) #double newline because proj gutenberg books use single newline for typographical purposes and double as a paragraph division. ideally id have better control over the input texts - maybe test for other evidence of PG formatting and exclude the license text and split by double newline with newline as default? idk
+        splitup = (fulltext.split(splitter)) #double newline because proj gutenberg books use single newline for typographical purposes and double as a paragraph division. ideally id have better control over the input texts - maybe test for other evidence of PG formatting and exclude the license text and split by double newline with newline as default? idk
         poppable = []
         after = len(splitup)+50
-        for sector in range(len(splitup)):
+        for sector in range(len(splitup)-1):
             if splitup[sector].strip == "":
                 poppable.append(sector)
             if gutFlag and "END OF THE PROJECT GUTENBERG EBOOK" in splitup[sector]:
                 after = sector
-                poppable.append(sector)             # after end, its just license text, and i dont want to be bibliomancing license text. 
+                poppable.append(sector)             # after end, its just license text, and i dont want to be bibliomancing license text
             if gutFlag and "The Project Gutenberg eBook of" in splitup[sector]:
                 poppable.append(sector)
             if gutFlag and "This eBook is for the use of anyone anywhere in the United States" in splitup[sector]:
@@ -40,8 +41,9 @@ def txtHandler(file):
                 poppable.append(sector)
         i=len(poppable)-1
         while (i>=0):
-            splitup.pop(i)
-            i-1
+            try: splitup.pop(poppable[i])
+            except: print("error encountered popping " + str(poppable[i]))
+            i=i-1
         return random.choice(splitup)
 
 
@@ -51,8 +53,8 @@ def txtHandler(file):
 
 
 def biblioFile(file):
-    if file.split(".")[-1].toLower in ["txt","md"]: 
-        txtHandler(file)
+    if file.split(".")[-1].lower() in ["txt","md"]: 
+        return txtHandler(file)
 
 
 
@@ -63,7 +65,7 @@ def biblioFile(file):
 def biblioDir(directory):
     files = os.listdir(directory)
     targetBib = directory + '/' + random.choice(files)
-    biblioFile(targetBib)
+    return biblioFile(targetBib)
                 
     
 
