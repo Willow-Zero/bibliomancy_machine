@@ -1,9 +1,17 @@
 import os
 import random
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-d","--directory",help="specifies a directory. conflicts with -f/--file.")
+parser.add_argument("-f","--file",help="specifies a directory. conflicts with -d/--directory.")
+args = parser.parse_args()
 
 USEDIR = os.getcwd() + '/bibliomancy'
 USEFILE=False
 
+if args.file:
+    USEFILE = args.file
 
 
 def txtHandler(file):
@@ -31,7 +39,7 @@ def txtHandler(file):
                 poppable.append(sector)
             if gutFlag and "Release date:" in splitup[sector]:
                 poppable.append(sector)                                         # these all strip elements of the project gutenberg pre-text from the randomness. 
-            if gutFlag and "Language:" in splitup[sector]:
+            if gutFlag and "Language:" in splitup[sector]:                      # i plan to split this into a seperate function after allthe standard stripping of empty text, it would look prettier. but this works.
                 poppable.append(sector)
             if gutFlag and "Other information and formats:" in splitup[sector]:
                 poppable.append(sector)
@@ -70,7 +78,7 @@ def biblioDir(directory):
     
 
 if USEFILE:
-    biblioFile(USEFILE)
+    print(biblioFile(USEFILE))
 else:
     print(biblioDir(USEDIR))
 
