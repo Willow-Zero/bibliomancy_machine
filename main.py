@@ -1,10 +1,14 @@
 import os
 import random
 import argparse
+from pypdf import PdfReader,PdfWriter
+import subprocess
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d","--directory",help="specifies a directory. conflicts with -f/--file.")
 parser.add_argument("-f","--file",help="specifies a directory. conflicts with -d/--directory.")
+parser.add_argument("-k","--kitty",action='store_true',help="enables icat viewing of pdf files")
+
 args = parser.parse_args()
 
 USEDIR = os.getcwd() + '/bibliomancy'
@@ -59,6 +63,22 @@ def txtHandler(file):
 
 
 
+def pdfHandler(file):
+    reader = PdfReader(file)
+    page = random.choice(reader.pages)
+    text = page.extract_text(extraction_mode="layout")
+    if args.kitty:
+        newWriter = PdfWriter()
+        newWriter.insert_page(page)
+        newWriter.write("tempOutput.pdf")
+        subprocess.run(["kitten","icat","--scale-up","--fit","height","--background","white","tempOutput.pdf"])
+        return("USED ICAT")
+    elif text:
+        return text
+    else: return "ERR"
+
+
+
 
 
 def biblioFile(file,directory=False):
@@ -66,6 +86,8 @@ def biblioFile(file,directory=False):
         return biblioDir(file)
     elif (file.split(".")[-1].lower() in ["txt","md"]): 
         return txtHandler(file)
+    elif (file.split(".")[-1].lower() in ["pdf"]): 
+        return pdfHandler(file)
 
 
 

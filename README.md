@@ -8,10 +8,11 @@ and yes you could just use fortune-mod for this. but then youd have to use fortu
 
 # TO DO
 - [x] implement directory level txt from fixed directory
-    - [ ] search subdirs too - i dont want to have to break my org system to bibliomancy my whole library
+    - [x] search subdirs too - i dont want to have to break my org system to bibliomancy my whole library
+    - [ ] maybe make it equally weight files instead of equally weighting by subdir (this will require full directory exploration before the command is run and will be annoying to implement on the timeline im aiming for)
 - [x] allow specification of directory with -d flag
 - [x] allow specification of file with -f flag
-- [ ] add pdf compat
+- [x] add pdf compat
 - [ ] publish package
 - [ ] allow epub compat
 - [ ] consider other formats but ngl pdf and epub are 90% of all ebooks
