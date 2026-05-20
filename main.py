@@ -61,8 +61,10 @@ def txtHandler(file):
 
 
 
-def biblioFile(file):
-    if file.split(".")[-1].lower() in ["txt","md"]: 
+def biblioFile(file,directory=False):
+    if (os.path.isdir(file)):
+        return biblioDir(file)
+    elif (file.split(".")[-1].lower() in ["txt","md"]): 
         return txtHandler(file)
 
 
@@ -74,7 +76,7 @@ def biblioFile(file):
 def biblioDir(directory):
     files = os.listdir(directory)
     targetBib = directory + '/' + random.choice(files)
-    return biblioFile(targetBib)
+    return biblioFile(targetBib,directory=directory)
                 
     
 

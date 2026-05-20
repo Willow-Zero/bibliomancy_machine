@@ -9,7 +9,7 @@ and yes you could just use fortune-mod for this. but then youd have to use fortu
 # TO DO
 - [x] implement directory level txt from fixed directory
     - [ ] search subdirs too - i dont want to have to break my org system to bibliomancy my whole library
-- [ ] allow specification of directory with -d flag
+- [x] allow specification of directory with -d flag
 - [x] allow specification of file with -f flag
 - [ ] add pdf compat
 - [ ] publish package
