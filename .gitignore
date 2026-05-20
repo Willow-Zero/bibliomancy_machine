@@ -1,2 +1,5 @@
-PKGBUILD
 *.pdf
+*pkg.tar.zst
+pkg
+src
+*.log
