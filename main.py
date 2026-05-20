@@ -12,7 +12,8 @@ USEFILE=False
 
 if args.file:
     USEFILE = args.file
-
+if args.directory:
+    USEDIR = args.directory
 
 def txtHandler(file):
     splitter = "\n"
