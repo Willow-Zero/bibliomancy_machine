@@ -2,7 +2,7 @@
 pkgname=bibliomancy-machine
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="Random text selection tool for bibliomancy - supports TXT, MD, and PDF files"
+pkgdesc="Random text selection tool for electronic bibliomancy - supports TXT, MD, and PDF files"
 arch=('any')
 url="https://github.com/yourusername/bibliomancy"
 license=('GPL-3.0-or-later OR LicenseRef-WTFPL')
